@@ -15,13 +15,18 @@ class CreateProjetosTable extends Migration
     {
         Schema::create('projetos', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('nome');
+            $table->bigInteger('user_id')->unsigned();
+            $table->string('nome', 100)->index();
             $table->text('descricao')->nullable();
-            $table->string('codigo');
+            $table->string('codigo', 7)->unique();
             $table->text('finalidade')->nullable();
             $table->tinyInteger('status')->default(0)->unsigned();
+            $table->date('inicio')->nullable();
+            $table->date('previsao')->nullable();
+            $table->date('fim')->nullable();
             $table->text('motivo')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
         });
     }
 
