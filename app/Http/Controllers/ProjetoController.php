@@ -15,9 +15,7 @@ class ProjetoController extends Controller
      */
     public function index()
     {
-        $models = Projeto::with([
-            'tarefa:id,nome,responsavel,fim'
-        ])->orderBy('created_at')->paginate(10);
+        $models = Projeto::with('tarefas')->orderBy('created_at')->paginate(10);
         return view('projetos.index', compact('models'));
     }
 
