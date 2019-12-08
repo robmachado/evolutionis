@@ -74,5 +74,7 @@
             @yield('content')
         </main>
     </div>
+    @notify_js
+    @notify_render
 </body>
 </html>
