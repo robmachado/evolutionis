@@ -16,16 +16,16 @@ $factory->define(Tarefa::class, function (Faker $faker) {
         $previsao = null;
         $fim = null;
     } elseif ($status == 1) {
-        $inicio = $faker->date($format = 'Y-m-d', $max = 'now');
+        $inicio = $faker->dateTimeBetween($startDate = '-365 days', $endDate = 'now', $timezone = null);
         $previsao = $faker->dateTimeBetween($startDate = '+10 days', $endDate = '+100 days', $timezone = null);
         $fim = null;
     } elseif ($status == 2) {
-        $inicio = $faker->date($format = 'Y-m-d', $max = 'now');
+        $inicio = $faker->dateTimeBetween($startDate = '-365 days', $endDate = 'now', $timezone = null);
         $previsao = $faker->dateTimeBetween($startDate = '+10 days', $endDate = '+100 days', $timezone = null);
         $fim = $previsao;
         $motivo = 'Sucesso';
     } else {
-        $inicio = $faker->date($format = 'Y-m-d', $max = 'now');
+        $inicio = $faker->dateTimeBetween($startDate = '-365 days', $endDate = 'now', $timezone = null);
         $previsao = $faker->dateTimeBetween($startDate = '+10 days', $endDate = '+100 days', $timezone = null);
         $fim = $previsao;
         $motivo = $faker->paragraph($nbSentences = 3, $variableNbSentences = true);

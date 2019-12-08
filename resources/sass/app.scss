@@ -6,3 +6,28 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+@import '~@fortawesome/fontawesome-free/scss/brands';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+.form-error {
+  border: 2px solid #e74c3c;
+}
+
+.help-error {
+    color: red;
+}
+
+i {
+    margin: 0 10px 0 0;
+}
+
+th {
+    text-align: center;
+}
+
+input[type=number] {
+    text-align:right
+}
