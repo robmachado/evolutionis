@@ -98,13 +98,13 @@ class UserController extends Controller
             return redirect()->route('user.index');
         }
         $user  = User::find($id);
-        if (!empty($request->name)) {
-            $user->name = $request->name;
-        }
-        if (!empty($request->email)) {
-            $user->email = $request->email;
-        }
+        $user->name = $request->name;
+        $user->email = $request->email;
         if (!empty($request->password)) {
+            if ($request->password !== $request->passwordconfirm) {
+                notify()->error("As senhas digitadas não são iguais!!");
+                return redirect()->back();
+            }
             $user->password = bcrypt($request->password);
         }
         $user->save();
