@@ -40,6 +40,9 @@
                     <td>{{ !empty($m->previsao) ? $m->previsao->format('d/m/Y') : null }}</td>
                     <td>{{ !empty($m->fim) ? $m->fim->format('d/m/Y') : null }}</td>
                     <td>
+                        <a href="{{ route("projeto.show", $m->id) }}" class="actions_show">
+                            <i class="far fa-eye" style="color:#99ffbb"></i>
+                        <a>
                         <a href="{{ route("projeto.edit", $m->id) }}" class="actions_edit">
                             <i class="far fa-edit"></i>
                         <a>

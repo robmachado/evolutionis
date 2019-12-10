@@ -56,9 +56,11 @@ class ProjetoController extends Controller
      * @param  \App\Projeto  $model
      * @return \Illuminate\Http\Response
      */
-    public function show(Projeto $model)
+    public function show($id)
     {
-        return view('projetos.edit', compact('model'));
+        dd('Show '.$id);
+        $model = Projeto::where('id', $id)->first();
+        return view('projetos.show', compact('model'));
     }
 
     /**
@@ -69,6 +71,7 @@ class ProjetoController extends Controller
      */
     public function edit($id)
     {
+        dd('Edit '.$id);
         $model = Projeto::where('id', $id)->first();
         return view('projetos.edit', compact('model'));
     }
