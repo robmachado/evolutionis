@@ -58,8 +58,8 @@ class ProjetoController extends Controller
      */
     public function show($id)
     {
-        dd('Show '.$id);
         $model = Projeto::where('id', $id)->first();
+        //dd($model);
         return view('projetos.show', compact('model'));
     }
 
@@ -71,7 +71,6 @@ class ProjetoController extends Controller
      */
     public function edit($id)
     {
-        dd('Edit '.$id);
         $model = Projeto::where('id', $id)->first();
         return view('projetos.edit', compact('model'));
     }
@@ -85,6 +84,9 @@ class ProjetoController extends Controller
      */
     public function update($id, Request $request)
     {
+        //se status = 2 ou 9 e fim = null => usar a data atual
+        //se status = 2 e motivo = null => motivo = Sucesso Aprovado
+        //se status = 9 e motivo = null => retorna erro indicar motivo
         $model = Projeto::find($id);
         $model->update($request->all());
         notify()->success('Projeto alterado com sucesso.');

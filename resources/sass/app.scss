@@ -12,6 +12,10 @@
 @import '~@fortawesome/fontawesome-free/scss/solid';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
+.navbar {
+    background: rgb(206, 210, 214) !important;
+}
+
 .form-error {
   border: 2px solid #e74c3c;
 }

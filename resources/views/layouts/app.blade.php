@@ -28,6 +28,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('projeto.index') }}">Projetos</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('tarefa.index') }}">Tarefas</a>
+                        </li>
                         @endauth
                     </ul>
                     <!-- Right Side Of Navbar -->
