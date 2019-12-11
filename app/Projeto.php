@@ -29,16 +29,16 @@ class Projeto extends Model
     {
         switch ($this->status) {
             case 1:
-                $txt = "Não iniciado";
+                $txt = "Em andamento";
                 break;
             case 2:
-                $txt = "Em andamento";
+                $txt = "Finalizado Aprovado";
                 break;
             case 9:
                 $txt = "Encerrado Reprovado";
                 break;
             default:
-                $txt = "Finalizado Aprovado";
+                $txt = "Não Iniciado";
         }
         return $txt;
     }

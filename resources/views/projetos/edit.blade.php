@@ -11,7 +11,7 @@
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
                 <label for="nome" class="col-sm-3 control-label">Nome do Projeto</label>
                 <div class="col-sm-12">
-                    <input type="text" name="nome" id="nome" class="form-control {{ $errors->has('nome') ? "form-error" : "" }}" value="{{ $model->nome }}" required autocomplete="nome">
+                    <input type="text" name="nome" id="nome" class="form-control {{ $errors->has('nome') ? "form-error" : "" }}" value="{{ $model->nome ?? old('nome') }}" required autocomplete="nome">
                     @if($errors->has('nome'))
                         <span class="help-block help-error">{{ $errors->first('nome') }}</span>
                     @endif
@@ -20,7 +20,7 @@
             <div class="form-group {{ $errors->has('descricao') ? 'has-error' : '' }}">
                 <label for="descricao" class="col-sm-12 control-label">Descrição do Projeto</label>
                 <div class="col-sm-12">
-                <textarea name="descricao" id="descricao" rows="2" cols="250" class="form-control {{ $errors->has('descricao') ? "form-error" : "" }}">{{ $model->descricao }}</textarea>
+                <textarea name="descricao" id="descricao" rows="2" cols="250" class="form-control {{ $errors->has('descricao') ? "form-error" : "" }}">{{ $model->descricao ?? old('descricao') }}</textarea>
                     @if($errors->has('descricao'))
                         <span class="help-block help-error">{{ $errors->first('descricao') }}</span>
                     @endif
@@ -29,7 +29,7 @@
             <div class="form-group {{ $errors->has('codigo') ? 'has-error' : '' }}">
                 <label for="codigo" class="col-sm-12 control-label">Código do Produto</label>
                 <div class="col-sm-12">
-                <input type="text" name="codigo" id="codigo" class="form-control {{ $errors->has('codigo') ? "form-error" : "" }}" value="{{ $model->codigo }}" required autocomplete="codigo">
+                <input type="text" name="codigo" id="codigo" class="form-control {{ $errors->has('codigo') ? "form-error" : "" }}" value="{{ $model->codigo ?? old('codigo') }}" required autocomplete="codigo">
                     @if($errors->has('codigo'))
                         <span class="help-block help-error">{{ $errors->first('codigo') }}</span>
                     @endif
@@ -40,7 +40,7 @@
             <div class="form-group {{ $errors->has('inicio') ? 'has-error' : '' }}">
                 <label for="inicio" class="col-sm-12 control-label">Data de Inicio</label>
                 <div class="col-sm-12">
-                <input type="date" name="inicio" id="inicio" class="form-control {{ $errors->has('inicio') ? "form-error" : "" }}" value="{{ $model->inicio != null ? $model->inicio->format('Y-m-d') : null }}">
+                <input type="date" name="inicio" id="inicio" class="form-control {{ $errors->has('inicio') ? "form-error" : "" }}" value="{{ $model->inicio != null ? $model->inicio->format('Y-m-d') : old('inicio') }}">
                     @if($errors->has('inicio'))
                         <span class="help-block help-error">{{ $errors->first('inicio') }}</span>
                     @endif
@@ -49,7 +49,7 @@
             <div class="form-group {{ $errors->has('previsao') ? 'has-error' : '' }}">
                 <label for="previsao" class="col-sm-12 control-label">Data Prevista</label>
                 <div class="col-sm-12">
-                <input type="date" name="previsao" id="previsao" class="form-control {{ $errors->has('previsao') ? "form-error" : "" }}" value="{{ $model->previsao != null ? $model->previsao->format('Y-m-d') : null  }}">
+                <input type="date" name="previsao" id="previsao" class="form-control {{ $errors->has('previsao') ? "form-error" : "" }}" value="{{ $model->previsao != null ? $model->previsao->format('Y-m-d') : old('previsao')  }}">
                     @if($errors->has('previsao'))
                         <span class="help-block help-error">{{ $errors->first('previsao') }}</span>
                     @endif
@@ -58,7 +58,7 @@
             <div class="form-group {{ $errors->has('fim') ? 'has-error' : '' }}">
                 <label for="fim" class="col-sm-12 control-label">Data de Encerramento</label>
                 <div class="col-sm-12">
-                <input type="date" name="fim" id="fim" class="form-control {{ $errors->has('fim') ? "form-error" : "" }}" value="{{ $model->fim != null ? $model->fim->format('Y-m-d') : null }}">
+                <input type="date" name="fim" id="fim" class="form-control {{ $errors->has('fim') ? "form-error" : "" }}" value="{{ $model->fim != null ? $model->fim->format('Y-m-d') : old('fim') }}">
                     @if($errors->has('fim'))
                         <span class="help-block help-error">{{ $errors->first('fim') }}</span>
                     @endif
@@ -80,7 +80,7 @@
             <div class="form-group {{ $errors->has('motivo') ? 'has-error' : '' }}">
                 <label for="motivo" class="col-sm-12 control-label">Motivo</label>
                 <div class="col-sm-12">
-                <textarea name="motivo" id="motivo" rows="2" cols="250" class="form-control {{ $errors->has('motivo') ? "form-error" : "" }}">{{ $model->motivo }}</textarea>
+                <textarea name="motivo" id="motivo" rows="2" cols="250" class="form-control {{ $errors->has('motivo') ? "form-error" : "" }}">{{ $model->motivo ?? old('motivo') }}</textarea>
                     @if($errors->has('motivo'))
                         <span class="help-block help-error">{{ $errors->first('motivo') }}</span>
                     @endif
@@ -130,6 +130,9 @@
                                 <a href="{{ route("tarefa.edit", $tar->id) }}" class="actions_edit">
                                     <i class="far fa-edit"></i>
                                 <a>
+                                <a href="javascript:;" data-toggle="modal" onclick="deleteData({{ $tar->id }})" data-target="#DeleteModal">
+                                    <i class="far fa-trash-alt" style="color:#ff6666;"></i>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
@@ -137,4 +140,19 @@
             </table>
         </div>
     </div>
+    @include('partials.modal')
+    <script type="text/javascript">
+        function deleteData(id)
+        {
+            var id = id;
+            var url = '{{ route("tarefa.destroy", ":id") }}';
+            url = url.replace(':id', id);
+            //alert(url);
+            $("#deleteForm").attr('action', url);
+        }
+        function formSubmit()
+        {
+            $("#deleteForm").submit();
+        }
+    </script>
 @endsection

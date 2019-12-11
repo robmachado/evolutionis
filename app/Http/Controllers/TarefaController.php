@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Tarefa;
 use App\Projeto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Auth;
 
 class TarefaController extends Controller
@@ -51,9 +52,10 @@ class TarefaController extends Controller
     public function update($id, Request $request)
     {
         $model = Tarefa::find($id);
+        
         $model->update($request->all());
         notify()->success('Tarefa alterada com sucesso.');
-        return redirect()->route('tarefa.index');
+        return redirect()->route('projeto.edit', $model->projeto_id);
     }
 
     public function destroy($id)
@@ -68,6 +70,10 @@ class TarefaController extends Controller
         }
         $model->delete();
         notify()->success('Tarefa removida com sucesso.');
-        return redirect()->back();
+        $previousRequest = str_replace(url('/'), '', url()->previous());
+        if ($previousRequest == '/tarefa') {
+            return redirect()->route('tarefa.index');
+        }
+        return redirect()->route('projeto.edit', $projeto->id);
     }
 }

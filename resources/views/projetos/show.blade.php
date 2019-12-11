@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
         <div class="col-sm-offset-3 col-sm-6">
-            <h3>Projeto</h3>
+            <h3>Dados do Projeto</h3>
         </div>
         <div class="col-sm-offset-3 col-sm-6">
              <a class="btn btn-default" href="{{ route('projeto.index') }}"><i class="far fa-caret-square-left"></i> Voltar</a>
@@ -40,9 +40,10 @@
                 </div>
             </div>
             <div class="col-sm-12">
+            <div class="row">
             <div class="form-group {{ $errors->has('inicio') ? 'has-error' : '' }}">
-                <label for="inicio" class="col-sm-3 control-label">Data de Inicio</label>
-                <div class="col-sm-3">
+                <label for="inicio" class="col-sm-12 control-label">Data de Inicio</label>
+                <div class="col-sm-12">
                 <input type="date" name="inicio" id="inicio" class="form-control {{ $errors->has('inicio') ? "form-error" : "" }}" value="{{ $model->inicio != null ? $model->inicio->format('Y-m-d') : null }}">
                     @if($errors->has('inicio'))
                         <span class="help-block help-error">{{ $errors->first('inicio') }}</span>
@@ -50,8 +51,8 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('previsao') ? 'has-error' : '' }}">
-                <label for="previsao" class="col-sm-3 control-label">Data Prevista</label>
-                <div class="col-sm-3">
+                <label for="previsao" class="col-sm-12 control-label">Data Prevista</label>
+                <div class="col-sm-12">
                 <input type="date" name="previsao" id="previsao" class="form-control {{ $errors->has('previsao') ? "form-error" : "" }}" value="{{ $model->previsao != null ? $model->previsao->format('Y-m-d') : null }}">
                     @if($errors->has('previsao'))
                         <span class="help-block help-error">{{ $errors->first('previsao') }}</span>
@@ -59,8 +60,8 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('fim') ? 'has-error' : '' }}">
-                <label for="fim" class="col-sm-3 control-label">Data de Encerramento</label>
-                <div class="col-sm-3">
+                <label for="fim" class="col-sm-12 control-label">Data de Encerramento</label>
+                <div class="col-sm-12">
                 <input type="date" name="fim" id="fim" class="form-control {{ $errors->has('fim') ? "form-error" : "" }}" value="{{ $model->fim != null ? $model->fim->format('Y-m-d') : null }}">
                     @if($errors->has('fim'))
                         <span class="help-block help-error">{{ $errors->first('fim') }}</span>
@@ -68,8 +69,8 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
-                <label for="status" class="col-sm-3 control-label">Situação do Projeto</label>
-                <div class="col-sm-3">
+                <label for="status" class="col-sm-12 control-label">Situação do Projeto</label>
+                <div class="col-sm-12">
                     <select id="status" name="status" class="form-control">
                         <option value="0" {{(0 == $model->status ? 'selected': '')}}>Não Iniciado</option>
                         <option value="1" {{(1 == $model->status ? 'selected': '')}}>Em andamento</option>
@@ -77,6 +78,7 @@
                         <option value="9" {{(9 == $model->status ? 'selected': '')}}>Encerrado Rejeitado</option>
                     </select>
                 </div>
+            </div>
             </div>
             </div>
             <div class="form-group {{ $errors->has('motivo') ? 'has-error' : '' }}">
