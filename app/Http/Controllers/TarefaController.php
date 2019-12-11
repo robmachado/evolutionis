@@ -43,8 +43,21 @@ class TarefaController extends Controller
         $data['fim'] = null;
         $data['motivo'] = null;
         Tarefa::create($data);
+        $this->atualize($request->projeto_id, $request->inicio);
         notify()->success('Tarefa criada com sucesso.');
         return redirect()->route('tarefa.index');
+    }
+
+    protected function atualize($projeto_id, $inicio)
+    {
+        $projeto = Projeto::find($projeto_id);
+        if ($projeto->inicio == null) {
+            $projeto->inicio = $inicio;
+            if ($projeto->status == 0) {
+                $projeto->status = 1;
+            }
+        }
+        $projeto->save();
     }
 
     public function show($id)
@@ -91,8 +104,8 @@ class TarefaController extends Controller
                 'motivo' => 'required',
             ]);
         }
-
         $model->update($data);
+        $this->atualize($request->projeto_id, $request->inicio);
         notify()->success('Tarefa alterada com sucesso.');
         return redirect()->route('projeto.edit', $model->projeto_id);
     }
