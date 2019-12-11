@@ -14,12 +14,12 @@
             @csrf
             <input type="hidden" name="_method" value="PATCH">
             <input type="hidden" name="projeto_id" id="projeto_id" value="{{ $model->projeto_id }}">
-            <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
+            <div class="form-group {{ $errors->has('nome') ? 'has-error' : '' }}">
                 <label for="nome" class="col-sm-3 control-label">Nome da Tarefa</label>
                 <div class="col-sm-12">
                     <input type="text" name="nome" id="nome" class="form-control {{ $errors->has('nome') ? "form-error" : "" }}" value="{{ $model->nome ?? old('nome') }}" required autocomplete="nome">
                     @if($errors->has('nome'))
-                        <span class="help-block help-error">{{ $errors->first('name') }}</span>
+                        <span class="help-block help-error">{{ $errors->first('nome') }}</span>
                     @endif
                 </div>
             </div>
@@ -28,7 +28,7 @@
                 <div class="col-sm-12">
                     <input type="text" name="projetonome" id="projetonome" class="form-control {{ $errors->has('nome') ? "form-error" : "" }}" value="{{ $model->projeto->nome }}" readonly>
                     @if($errors->has('projetonome'))
-                        <span class="help-block help-error">{{ $errors->first('name') }}</span>
+                        <span class="help-block help-error">{{ $errors->first('projetoname') }}</span>
                     @endif
                 </div>
             </div>

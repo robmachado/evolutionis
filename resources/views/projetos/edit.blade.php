@@ -20,7 +20,7 @@
             <div class="form-group {{ $errors->has('descricao') ? 'has-error' : '' }}">
                 <label for="descricao" class="col-sm-12 control-label">Descrição do Projeto</label>
                 <div class="col-sm-12">
-                <textarea name="descricao" id="descricao" rows="2" cols="250" class="form-control {{ $errors->has('descricao') ? "form-error" : "" }}">{{ $model->descricao ?? old('descricao') }}</textarea>
+                <textarea name="descricao" id="descricao" rows="2" cols="250" class="form-control {{ $errors->has('descricao') ? "form-error" : "" }}" required>{{ $model->descricao ?? old('descricao') }}</textarea>
                     @if($errors->has('descricao'))
                         <span class="help-block help-error">{{ $errors->first('descricao') }}</span>
                     @endif
@@ -101,9 +101,11 @@
             <div class="col-md-6">
                 <h3>Tarefas do Projeto</h3>
             </div>
+            @if ($model->status < 2)
             <div class="col-md-6">
                 <a href="{{ route('task.create', $model->id) }}" class="btn btn-primary float-right actions_create"><i class="far fa-plus-square"></i> Nova Tarefa</a>
             </div>
+            @endif
         </div>
         <div class="panel-body">
             <table class="table">
@@ -127,12 +129,14 @@
                                 <a href="{{ route("tarefa.show", $tar->id) }}" class="actions_show">
                                     <i class="far fa-eye" style="color:#99ffbb"></i>
                                 <a>
+                                @if ($model->status < 2)
                                 <a href="{{ route("tarefa.edit", $tar->id) }}" class="actions_edit">
                                     <i class="far fa-edit"></i>
                                 <a>
                                 <a href="javascript:;" data-toggle="modal" onclick="deleteData({{ $tar->id }})" data-target="#DeleteModal">
                                     <i class="far fa-trash-alt" style="color:#ff6666;"></i>
                                 </a>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

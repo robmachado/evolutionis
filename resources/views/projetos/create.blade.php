@@ -18,7 +18,7 @@
             <div class="form-group {{ $errors->has('descricao') ? 'has-error' : '' }}">
                 <label for="descricao" class="col-sm-12 control-label">Descrição do Projeto</label>
                 <div class="col-sm-12">
-                <textarea name="descricao" id="descricao" rows="2" cols="250" class="form-control {{ $errors->has('descricao') ? "form-error" : "" }}">{{ old('"descricao') }}</textarea>
+                <textarea name="descricao" id="descricao" rows="2" cols="250" class="form-control {{ $errors->has('descricao') ? "form-error" : "" }}" required>{{ old('"descricao') }}</textarea>
                     @if($errors->has('descricao'))
                         <span class="help-block help-error">{{ $errors->first('descricao') }}</span>
                     @endif

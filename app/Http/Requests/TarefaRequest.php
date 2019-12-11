@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProjetoRequest extends FormRequest
+class TarefaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,12 +25,13 @@ class ProjetoRequest extends FormRequest
     {
         return [
             'nome' => ['required', 'string', 'min:5', 'max:100'],
-            'descricao' => ['required', 'string'],
-            'codigo'  => ['required', 'string', 'regex:/^[0-9]{4}[A-Za-z]{1,2}$/'],
-            'inicio' => ['nullable','date_format:Y-m-d'],
-            'previsao' => ['nullable','required_with:inicio', 'date_format:Y-m-d', 'after:inicio'],
+            'projeto_id' => ['required', 'integer', 'min:1'],
+            'detalhe' => ['required', 'string'],
+            'responsavel'  => ['required', 'string', 'max:50'],
+            'inicio' => ['nullable', 'date_format:Y-m-d'],
+            'previsao' => ['nullable', 'required_with:inicio', 'date_format:Y-m-d', 'after:inicio'],
             'fim' => ['nullable', 'date_format:Y-m-d', 'after:inicio'],
-            'status' => ['required', 'integer','min:0','max:9'],
+            'status' => ['required', 'integer', 'min:0', 'max:9'],
             'motivo' => ['nullable', 'required_with:fim', 'string'],
         ];
     }

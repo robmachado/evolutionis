@@ -44,12 +44,15 @@ class ProjetoController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\ProjetoRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(ProjetoRequest $request)
     {
         $data = $request->all();
+        if (!empty($request->inicio)) {
+            $data['status'] = 1;
+        }
         $data['fim'] = null;
         $data['motivo'] = null;
         Projeto::create($data);
@@ -89,40 +92,26 @@ class ProjetoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update($id, Request $request)
+    public function update($id, ProjetoRequest $request)
     {
         $data = $request->all();
-        if (!empty($request->inicio) && empty($request->previsao)) {
-            notify()->error('Quando indicar data de inicio, também deve ser indicada a data prevista de finalização!');
-            $request->validate([
-                'previsao' => 'required|date_format:Y-m-d|after:inicio',
-            ]);
-        } elseif (!empty($request->inicio)) {
-            $request->validate([
-                'previsao' => 'required|date_format:Y-m-d|after:inicio',
-            ]);
-        }
+
         if ($request->inicio != null && $request->status == 0) {
             $data['status'] = 1;
         }
         //se status = 2 ou 9 e fim = null => usar a data atual
-        if (($request->status == 2 || $request->status == 9) && $request->fim == null) {
-            $data['fim'] = date('Y-m-d');
+        if ($request->status > 2 && $request->fim == null) {
+            notify()->error('Quando indicar a situação de encerramento a data de finalização deve ser indicada!');
+            $request->validate([
+                'fim' => 'required|date_format:Y-m-d|after:inicio',
+                'motivo' => 'required|string'
+            ]);
         }
         if (!empty($request->fim) && ($request->status == 0 || $request->status == 1)) {
             notify()->error('Quando indicar data de finalização, a situação também deve ser ajustada!');
             $request->validate([
                 'status' => 'integer|min:2|max:9',
-            ]);
-        }
-        //se status = 2 e motivo = null => motivo = Sucesso Aprovado
-        //se status = 9 e motivo = null => retorna erro indicar motivo
-        if ($request->status == 2 && empty($request->motivo)) {
-            $data['motivo'] = 'Sucesso!! Aprovado.';
-        } elseif ($request->status == 9 && empty($request->motivo)) {
-            notify()->error('Quando indicar o encerramento e REPROVAÇÃO, o motivo deve ser indicado!');
-            $request->validate([
-                'motivo' => 'required',
+                'motivo' => 'required|string'
             ]);
         }
         $model = Projeto::find($id);
