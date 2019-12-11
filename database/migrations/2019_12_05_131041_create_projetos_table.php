@@ -19,7 +19,6 @@ class CreateProjetosTable extends Migration
             $table->string('nome', 100)->index();
             $table->text('descricao')->nullable();
             $table->string('codigo', 7)->unique();
-            $table->text('finalidade')->nullable();
             $table->tinyInteger('status')->default(0)->unsigned();
             $table->date('inicio')->nullable();
             $table->date('previsao')->nullable();

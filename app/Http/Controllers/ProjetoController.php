@@ -15,7 +15,10 @@ class ProjetoController extends Controller
      */
     public function index()
     {
-        $models = Projeto::with('tarefas')->orderBy('created_at')->paginate(10);
+        $models = Projeto::with('tarefas')
+            ->orderBy('status')
+            ->orderBy('inicio')
+            ->paginate(10);
         return view('projetos.index', compact('models'));
     }
 
@@ -47,7 +50,7 @@ class ProjetoController extends Controller
     {
         Projeto::create($request->all());
         notify()->success('Projeto criado com sucesso.');
-        return redirect()->route('projetos.index');
+        return redirect()->route('projeto.index');
     }
 
     /**
@@ -90,7 +93,7 @@ class ProjetoController extends Controller
         $model = Projeto::find($id);
         $model->update($request->all());
         notify()->success('Projeto alterado com sucesso.');
-        return redirect()->route('projetos.index');
+        return redirect()->route('projeto.index');
     }
 
     /**
@@ -105,7 +108,7 @@ class ProjetoController extends Controller
         $model = Projeto::find($id);
         if ($model->user_id !== $user_id && $user_id !== 1) {
             notify()->error("DELEÇÃO NEGADA !!<br>Apenas o criador do projeto pode remove-lo.");
-            return redirect()->route('projetos.index');
+            return redirect()->route('projeto.index');
         }
         $model->delete();
         notify()->success('Projeto removido com sucesso.');

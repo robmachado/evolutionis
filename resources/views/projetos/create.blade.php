@@ -7,11 +7,11 @@
             <input type="hidden" id="user_id" name="user_id" value="{{ Auth::user()->id }}">
             @csrf
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                <label for="name" class="col-sm-3 control-label">Nome do Projeto</label>
+                <label for="nome" class="col-sm-3 control-label">Nome do Projeto</label>
                 <div class="col-sm-12">
-                    <input type="text" name="name" id="name" class="form-control {{ $errors->has('name') ? "form-error" : "" }}" value="{{ old('name') }}" required autocomplete="name">
-                    @if($errors->has('name'))
-                        <span class="help-block help-error">{{ $errors->first('name') }}</span>
+                    <input type="text" name="nome" id="nome" class="form-control {{ $errors->has('nome') ? "form-error" : "" }}" value="{{ old('nome') }}" required autocomplete="nome do projeto">
+                    @if($errors->has('nome'))
+                        <span class="help-block help-error">{{ $errors->first('nome') }}</span>
                     @endif
                 </div>
             </div>
@@ -33,19 +33,10 @@
                     @endif
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('finalidade') ? 'has-error' : '' }}">
-                <label for="finalidade" class="col-sm-12 control-label">Finalidade do Projeto</label>
-                <div class="col-sm-12">
-                <textarea name="finalidade" id="finalidade" rows="2" cols="250" class="form-control {{ $errors->has('finalidade') ? "form-error" : "" }}">{{ old('finalidade') }}</textarea>
-                    @if($errors->has('finalidade'))
-                        <span class="help-block help-error">{{ $errors->first('finalidade') }}</span>
-                    @endif
-                </div>
-            </div>
-            <div class="form-row">
+            <div class="col-sm-12">
             <div class="form-group {{ $errors->has('inicio') ? 'has-error' : '' }}">
-                <label for="inicio" class="col-sm-12 control-label">Data de Inicio</label>
-                <div class="col-sm-12">
+                <label for="inicio" class="col-sm-3 control-label">Data de Inicio</label>
+                <div class="col-sm-3">
                 <input type="date" name="inicio" id="inicio" class="form-control {{ $errors->has('inicio') ? "form-error" : "" }}" value="{{ old('inicio') }}">
                     @if($errors->has('inicio'))
                         <span class="help-block help-error">{{ $errors->first('inicio') }}</span>
@@ -53,8 +44,8 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('previsao') ? 'has-error' : '' }}">
-                <label for="previsao" class="col-sm-12 control-label">Data Prevista</label>
-                <div class="col-sm-12">
+                <label for="previsao" class="col-sm-3 control-label">Data Prevista</label>
+                <div class="col-sm-3">
                 <input type="date" name="previsao" id="previsao" class="form-control {{ $errors->has('previsao') ? "form-error" : "" }}" value="{{ old('previsao') }}">
                     @if($errors->has('previsao'))
                         <span class="help-block help-error">{{ $errors->first('previsao') }}</span>
@@ -62,8 +53,8 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('fim') ? 'has-error' : '' }}">
-                <label for="fim" class="col-sm-12 control-label">Data de Encerramento</label>
-                <div class="col-sm-12">
+                <label for="fim" class="col-sm-3 control-label">Data de Encerramento</label>
+                <div class="col-sm-3">
                 <input type="date" name="fim" id="fim" class="form-control {{ $errors->has('fim') ? "form-error" : "" }}" value="{{ old('fim') }}">
                     @if($errors->has('fim'))
                         <span class="help-block help-error">{{ $errors->first('fim') }}</span>
@@ -71,8 +62,8 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
-                <label for="status" class="col-sm-12 control-label">Situação do Projeto</label>
-                <div class="col-sm-12">
+                <label for="status" class="col-sm-3 control-label">Situação do Projeto</label>
+                <div class="col-sm-3">
                     <select id="status" name="status" class="form-control">
                         <option value="0" selected>Não Iniciado</option>
                         <option value="1">Em andamento</option>

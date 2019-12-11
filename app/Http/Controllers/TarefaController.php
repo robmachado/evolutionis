@@ -2,47 +2,72 @@
 
 namespace App\Http\Controllers;
 
+use App\Tarefa;
+use App\Projeto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TarefaController extends Controller
 {
     public function index()
     {
-        dd('tarefa index');
+        $models = Tarefa::with('projeto')
+            ->orderBy('status')
+            ->orderBy('inicio')
+            ->paginate(10);
+        return view('tarefas.index', compact('models'));
     }
 
-    public function pendents()
+    public function newtask($projeto)
     {
-        dd('tarefa pendents');
+        $projeto = Projeto::findOrFail($projeto);
+        return view('tarefas.create', compact('projeto'));
     }
 
     public function create()
     {
-        dd('tarefa create');
+        return view('tarefas.create');
     }
 
     public function store(Request $request)
     {
-        dd('tarefa strore');
+        Tarefa::create($request->all());
+        notify()->success('Tarefa criada com sucesso.');
+        return redirect()->route('tarefas.index');
     }
 
     public function show($id)
     {
-        dd('tarefa show');
+        $model = Tarefa::where('id', $id)->first();
+        return view('tarefas.show', compact('model'));
     }
 
     public function edit($id)
     {
-        dd('tarefa edit');
+        $model = Tarefa::where('id', $id)->first();
+        return view('tarefas.edit', compact('model'));
     }
 
     public function update($id, Request $request)
     {
-        dd('tarefa update');
+        $model = Tarefa::find($id);
+        $model->update($request->all());
+        notify()->success('Tarefa alterada com sucesso.');
+        return redirect()->route('tarefa.index');
     }
 
     public function destroy($id)
     {
-        dd('tarefa destroy');
+        $model = Tarefa::find($id);
+        $projeto = Projeto::find($model->projeto_id);
+        $user_id = Auth::user()->id;
+
+        if ($projeto->user_id !== $user_id && $user_id !== 1) {
+            notify()->error("DELEÇÃO NEGADA !!<br>Apenas o criador do projeto pode remover tarefas.");
+            return redirect()->route('tarefa.index');
+        }
+        $model->delete();
+        notify()->success('Tarefa removida com sucesso.');
+        return redirect()->back();
     }
 }

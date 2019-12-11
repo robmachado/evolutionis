@@ -1,15 +1,22 @@
 @extends('layouts.app')
 @section('content')
     <div class="container">
-        <h3>Projeto</h3>
+        <div class="row">
+        <div class="col-sm-offset-3 col-sm-6">
+            <h3>Projeto</h3>
+        </div>
+        <div class="col-sm-offset-3 col-sm-6">
+             <a class="btn btn-default" href="{{ route('projeto.index') }}"><i class="far fa-caret-square-left"></i> Voltar</a>
+        </div>
+        </div>
         <div class="panel-body">
         <form action="#" method="POST" class="form-horizontal">
             @csrf
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                <label for="name" class="col-sm-3 control-label">Nome do Projeto</label>
+                <label for="nome" class="col-sm-3 control-label">Nome do Projeto</label>
                 <div class="col-sm-12">
-                    <input type="text" name="name" id="name" class="form-control {{ $errors->has('name') ? "form-error" : "" }}" value="{{ $model->nome }}" required autocomplete="name">
-                    @if($errors->has('name'))
+                    <input type="text" name="nome" id="nome" class="form-control {{ $errors->has('nome') ? "form-error" : "" }}" value="{{ $model->nome }}" required autocomplete="nome">
+                    @if($errors->has('nome'))
                         <span class="help-block help-error">{{ $errors->first('name') }}</span>
                     @endif
                 </div>
@@ -32,19 +39,10 @@
                     @endif
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('finalidade') ? 'has-error' : '' }}">
-                <label for="finalidade" class="col-sm-12 control-label">Finalidade do Projeto</label>
-                <div class="col-sm-12">
-                <textarea name="finalidade" id="finalidade" rows="2" cols="250" class="form-control {{ $errors->has('finalidade') ? "form-error" : "" }}">{{ $model->finalidade }}</textarea>
-                    @if($errors->has('finalidade'))
-                        <span class="help-block help-error">{{ $errors->first('finalidade') }}</span>
-                    @endif
-                </div>
-            </div>
-            <div class="form-row">
+            <div class="col-sm-12">
             <div class="form-group {{ $errors->has('inicio') ? 'has-error' : '' }}">
-                <label for="inicio" class="col-sm-12 control-label">Data de Inicio</label>
-                <div class="col-sm-12">
+                <label for="inicio" class="col-sm-3 control-label">Data de Inicio</label>
+                <div class="col-sm-3">
                 <input type="date" name="inicio" id="inicio" class="form-control {{ $errors->has('inicio') ? "form-error" : "" }}" value="{{ $model->inicio != null ? $model->inicio->format('Y-m-d') : null }}">
                     @if($errors->has('inicio'))
                         <span class="help-block help-error">{{ $errors->first('inicio') }}</span>
@@ -52,8 +50,8 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('previsao') ? 'has-error' : '' }}">
-                <label for="previsao" class="col-sm-12 control-label">Data Prevista</label>
-                <div class="col-sm-12">
+                <label for="previsao" class="col-sm-3 control-label">Data Prevista</label>
+                <div class="col-sm-3">
                 <input type="date" name="previsao" id="previsao" class="form-control {{ $errors->has('previsao') ? "form-error" : "" }}" value="{{ $model->previsao != null ? $model->previsao->format('Y-m-d') : null }}">
                     @if($errors->has('previsao'))
                         <span class="help-block help-error">{{ $errors->first('previsao') }}</span>
@@ -61,8 +59,8 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('fim') ? 'has-error' : '' }}">
-                <label for="fim" class="col-sm-12 control-label">Data de Encerramento</label>
-                <div class="col-sm-12">
+                <label for="fim" class="col-sm-3 control-label">Data de Encerramento</label>
+                <div class="col-sm-3">
                 <input type="date" name="fim" id="fim" class="form-control {{ $errors->has('fim') ? "form-error" : "" }}" value="{{ $model->fim != null ? $model->fim->format('Y-m-d') : null }}">
                     @if($errors->has('fim'))
                         <span class="help-block help-error">{{ $errors->first('fim') }}</span>
@@ -70,8 +68,8 @@
                 </div>
             </div>
             <div class="form-group {{ $errors->has('status') ? 'has-error' : '' }}">
-                <label for="status" class="col-sm-12 control-label">Situação do Projeto</label>
-                <div class="col-sm-12">
+                <label for="status" class="col-sm-3 control-label">Situação do Projeto</label>
+                <div class="col-sm-3">
                     <select id="status" name="status" class="form-control">
                         <option value="0" {{(0 == $model->status ? 'selected': '')}}>Não Iniciado</option>
                         <option value="1" {{(1 == $model->status ? 'selected': '')}}>Em andamento</option>
@@ -90,12 +88,35 @@
                     @endif
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-6">
-                    <a class="btn btn-default" href="{{ route('projeto.index') }}"><i class="far fa-caret-square-left"></i> Voltar</a>
-                </div>
-            </div>
         </form>
+        </div>
+        <div class="panel panel-default">
+            <h3>Tarefas</h3>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Responsável</th>
+                            <th scope="col">Situação</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($model->tarefas as $tar)
+                        <tr>
+                            <th scope="row">{{ $tar->id }}</th>
+                            <td>{{ $tar->nome }}</td>
+                            <td>{{ $tar->responsavel }}</td>
+                            <td>{{ $tar->situacao }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-offset-3 col-sm-6">
+            <a class="btn btn-default" href="{{ route('projeto.index') }}"><i class="far fa-caret-square-left"></i> Voltar</a>
         </div>
     </div>
 @endsection

@@ -15,7 +15,6 @@
                 <th>Numero</th>
                 <th>Código</th>
                 <th>Nome</th>
-                <th>Descrição</th>
                 <th>n.tarefas</th>
                 <th>Inicio</th>
                 <th>Previsão</th>
@@ -34,7 +33,6 @@
                     <td align="center">{{ $m->id }}</td>
                     <td>{{ $m->codigo }}</td>
                     <td>{{ $m->nome }}</td>
-                    <td>{{ $m->descricao }}</td>
                     <td>{{ $m->tarefas->count() }}</td>
                     <td>{{ !empty($m->inicio) ? $m->inicio->format('d/m/Y') : null }}</td>
                     <td>{{ !empty($m->previsao) ? $m->previsao->format('d/m/Y') : null }}</td>

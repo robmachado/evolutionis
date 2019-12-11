@@ -36,7 +36,6 @@ $factory->define(Projeto::class, function (Faker $faker) {
         'nome' => $faker->company,
         'descricao' => $faker->sentence($nbWords = 3, $variableNbWords = true),
         'codigo' => $faker->numberBetween($min = 2000, $max = 2999) . $faker->randomLetter(),
-        'finalidade' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true),
         'status' => $status, //0-não iniciado 1-em andamento 2-finalizado 9-encerrado com falha
         'inicio' => $inicio,
         'previsao' => $previsao,

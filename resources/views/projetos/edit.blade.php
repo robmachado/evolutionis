@@ -9,11 +9,11 @@
             <input type="hidden" name="_method" value="PATCH">
             @csrf
             <div class="form-group {{ $errors->has('name') ? 'has-error' : '' }}">
-                <label for="name" class="col-sm-3 control-label">Nome do Projeto</label>
+                <label for="nome" class="col-sm-3 control-label">Nome do Projeto</label>
                 <div class="col-sm-12">
-                    <input type="text" name="name" id="name" class="form-control {{ $errors->has('name') ? "form-error" : "" }}" value="{{ $model->nome }}" required autocomplete="name">
-                    @if($errors->has('name'))
-                        <span class="help-block help-error">{{ $errors->first('name') }}</span>
+                    <input type="text" name="nome" id="nome" class="form-control {{ $errors->has('nome') ? "form-error" : "" }}" value="{{ $model->nome }}" required autocomplete="nome">
+                    @if($errors->has('nome'))
+                        <span class="help-block help-error">{{ $errors->first('nome') }}</span>
                     @endif
                 </div>
             </div>
@@ -35,16 +35,8 @@
                     @endif
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('finalidade') ? 'has-error' : '' }}">
-                <label for="finalidade" class="col-sm-12 control-label">Finalidade do Projeto</label>
-                <div class="col-sm-12">
-                <textarea name="finalidade" id="finalidade" rows="2" cols="250" class="form-control {{ $errors->has('finalidade') ? "form-error" : "" }}">{{ $model->finalidade }}</textarea>
-                    @if($errors->has('finalidade'))
-                        <span class="help-block help-error">{{ $errors->first('finalidade') }}</span>
-                    @endif
-                </div>
-            </div>
-            <div class="form-row">
+            <div class="col-sm-12">
+            <div class="row">
             <div class="form-group {{ $errors->has('inicio') ? 'has-error' : '' }}">
                 <label for="inicio" class="col-sm-12 control-label">Data de Inicio</label>
                 <div class="col-sm-12">
@@ -84,6 +76,7 @@
                 </div>
             </div>
             </div>
+            </div>
             <div class="form-group {{ $errors->has('motivo') ? 'has-error' : '' }}">
                 <label for="motivo" class="col-sm-12 control-label">Motivo</label>
                 <div class="col-sm-12">
@@ -102,6 +95,46 @@
                 </div>
             </div>
         </form>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Tarefas do Projeto</h3>
+            </div>
+            <div class="col-md-6">
+                <a href="{{ route('task.create', $model->id) }}" class="btn btn-primary float-right actions_create"><i class="far fa-plus-square"></i> Nova Tarefa</a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Responsável</th>
+                        <th scope="col">Situação</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($model->tarefas as $tar)
+                        <tr>
+                           <th scope="row">{{ $tar->id }}</th>
+                            <td>{{ $tar->nome }}</td>
+                            <td>{{ $tar->responsavel }}</td>
+                            <td>{{ $tar->situacao }}</td>
+                            <td>
+                                <a href="{{ route("tarefa.show", $tar->id) }}" class="actions_show">
+                                    <i class="far fa-eye" style="color:#99ffbb"></i>
+                                <a>
+                                <a href="{{ route("tarefa.edit", $tar->id) }}" class="actions_edit">
+                                    <i class="far fa-edit"></i>
+                                <a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection
