@@ -16,7 +16,7 @@ class ProjetoController extends Controller
      */
     public function index()
     {
-        $models = Projeto::with('tarefas')
+        $models = Projeto::with(['tarefas:id,nome,responsavel,inicio'])
             ->orderBy('status')
             ->orderBy('inicio')
             ->paginate(10);
